@@ -68,8 +68,8 @@ Notar que la distancia de una ciudad hacia sí misma es cero y la distancia entr
 Dadas dos ciudades y una matriz de distancias, se pide determinar si existe un camino entre ambas ciudades.\\
 
 \begin{proc}{hayCamino}{\In distancias : \TLista{\TLista{\ent}}, \In desde : \ent, \In hasta : \ent}{\bool}
-	\requiere{True}
-	\asegura{\existe[unalinea]{c}{\TLista{\ent}}{(c[0] = desde) \yLuego (c[|c| - 1] = hasta) \land (\paraTodo[unalinea]{n}{\ent}{(0 \leq n < |c|-1) \implicaLuego (hayCaminoDirecto(c[n],c[n+1],distancias))})}}
+	\requiere{{\paraTodo[unalinea]{n}{\ent}{0\leq n < |distancias| \implicaLuego |distancias|=|distancias[n]|}}}
+	\asegura{res = True \Leftrightarrow {\existe[unalinea]{c}{\TLista{\ent}}{|c|>1 \yLuego c[0] = desde \land c[|c|-1] = hasta \land (\paraTodo[unalinea]{n}{\ent}{0 \leq n < |c|-1 \implicaLuego (0 \leq c[n] < |distancias| \yLuego hayCaminoDirecto(c[n],c[n+1],distancias))})}}}
 \end{proc}
 
 \pred{hayCaminoDirecto}{c1 : \ent, c2 : \ent, distancias : \TLista{\TLista{\ent}}}{distancias[c1][c2] \neq 0}
